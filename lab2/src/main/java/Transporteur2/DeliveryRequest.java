@@ -2,8 +2,6 @@ package Transporteur2;
 
 import javax.xml.bind.annotation.*;
 
-import transport.packages.*;
-
 @XmlType(name="DeliveryRequest")
 public class DeliveryRequest {
 	

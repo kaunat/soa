@@ -2,8 +2,6 @@ package Transporteur2;
 
 import javax.jws.*;
 
-import transport.messages.*;
-
 @WebService(name="DeliveryNetwork")
 public interface DeliveryNetworkService {
 
