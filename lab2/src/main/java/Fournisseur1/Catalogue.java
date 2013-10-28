@@ -3,7 +3,7 @@ package Fournisseur1;
 import java.util.ArrayList;
 
 /**
- * 
+ * test
  *
  */
 public class Catalogue {
