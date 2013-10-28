@@ -2,6 +2,10 @@ package Fournisseur1;
 
 import java.util.ArrayList;
 
+/**
+ * 
+ *
+ */
 public class Catalogue {
 	
 	private static ArrayList<Product> listProduct;
