@@ -1,4 +1,4 @@
-package api;
+package Fournisseur1;
 
 import javax.xml.bind.annotation.XmlElement;
 

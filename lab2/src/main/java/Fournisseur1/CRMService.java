@@ -1,4 +1,4 @@
-package api;
+package Fournisseur1;
 
 import java.util.ArrayList;
 
@@ -7,10 +7,6 @@ import javax.jws.WebParam;
 import javax.jws.WebResult;
 import javax.jws.WebService;
 
-import exception.ExistingLoginFault;
-import exception.ExistingReferenceFault;
-import exception.NotConnectedFault;
-import exception.UnauthorizedAccessFault;
 
 @WebService(serviceName="CRM")
 public interface CRMService {

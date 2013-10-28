@@ -1,13 +1,9 @@
-package api;
+package Fournisseur1;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
-import exception.ExistingLoginFault;
-import exception.ExistingReferenceFault;
-import exception.NotConnectedFault;
-import exception.UnauthorizedAccessFault;
 
 public class CRMServiceImpl implements CRMService {
 	

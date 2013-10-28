@@ -1,4 +1,4 @@
-package exception;
+package Fournisseur1;
 
 public class NotConnectedFault extends CRMFault {
 
