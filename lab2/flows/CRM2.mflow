@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<mule-configuration xmlns="http://www.mulesoft.com/tooling/messageflow" name="CRM">
+<mule-configuration xmlns="http://www.mulesoft.com/tooling/messageflow" name="CRM2">
     <flow SubFlow="false" name="CRMFlow1" entity-id="873cacca-d56a-4592-9480-c0a50ab40fb8">
         <properties>
             <property name="processingStrategy"/>
