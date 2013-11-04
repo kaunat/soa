@@ -6,20 +6,4 @@ http://www.mulesoft.org/schema/mule/email http://www.mulesoft.org/schema/mule/em
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
 http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd">
-    <flow name="PrintedCatalogueFlow1" doc:name="PrintedCatalogueFlow1">
-        <vm:inbound-endpoint exchange-pattern="one-way" path="VM/Printed_catalogue" doc:name="VM"/>
-        <all doc:name="All">
-            <processor-chain>
-                <data-mapper:transform doc:name="DataMapper"/>
-                <collection-splitter doc:name="Collection Splitter"/>
-                <vm:outbound-endpoint exchange-pattern="one-way" doc:name="VM"/>
-                <collection-aggregator failOnTimeout="true" doc:name="Collection Aggregator"/>
-                <email:string-to-email-transformer doc:name="String to Email"/>
-            </processor-chain>
-            <object-to-string-transformer doc:name="Object to String"/>
-        </all>
-    </flow>
-    <flow name="PrintedCatalogueFlow2" doc:name="PrintedCatalogueFlow2">
-        <vm:inbound-endpoint exchange-pattern="request-response" doc:name="VM"/>
-    </flow>
 </mule>
