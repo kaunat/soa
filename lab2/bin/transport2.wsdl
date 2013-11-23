@@ -1,0 +1,192 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="DeliveryNetworkServiceService" targetNamespace="http://Transporteur2/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://Transporteur2/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://Transporteur2/" xmlns:tns="http://Transporteur2/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element name="delivery" type="tns:delivery"/>
+<xs:element name="deliveryResponse" type="tns:deliveryResponse"/>
+<xs:element name="quote" type="tns:quote"/>
+<xs:element name="quoteResponse" type="tns:quoteResponse"/>
+<xs:element name="track" type="tns:track"/>
+<xs:element name="trackResponse" type="tns:trackResponse"/>
+<xs:complexType name="quote">
+<xs:sequence>
+<xs:element minOccurs="0" name="quote_request" type="tns:DeliveryPersonalRequest"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="DeliveryPersonalRequest">
+<xs:sequence>
+<xs:element name="from_address" type="xs:string"/>
+<xs:element name="to_address" type="xs:string"/>
+<xs:element name="first_name" type="xs:string"/>
+<xs:element name="last_name" type="xs:string"/>
+<xs:element name="delivery_properties" type="tns:DeliveryProperties"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="DeliveryProperties">
+<xs:sequence>
+<xs:element name="length" type="xs:int"/>
+<xs:element name="width" type="xs:int"/>
+<xs:element name="height" type="xs:int"/>
+<xs:element name="weight" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="quoteResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="quote_response" type="tns:DeliveryPersonalResponse"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="DeliveryPersonalResponse">
+<xs:sequence>
+<xs:element name="price" type="xs:int"/>
+<xs:element minOccurs="0" name="estimated_date" type="xs:dateTime"/>
+<xs:element minOccurs="0" name="package_number" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="delivery">
+<xs:sequence>
+<xs:element minOccurs="0" name="delivery_request" type="tns:DeliveryPersonalRequest"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="deliveryResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="delivery_response" type="tns:DeliveryPersonalResponse"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="track">
+<xs:sequence>
+<xs:element minOccurs="0" name="track_request" type="tns:TrackPersonalRequest"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="TrackPersonalRequest">
+<xs:sequence>
+<xs:element minOccurs="0" name="delivery_number" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="trackResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="track_response" type="tns:TrackPersonalResponse"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="TrackPersonalResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="estimated_date" type="xs:dateTime"/>
+<xs:element minOccurs="0" name="location" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="DeliveryFault" type="tns:DeliveryFault"/>
+<xs:complexType name="DeliveryFault">
+<xs:sequence/>
+</xs:complexType>
+<xs:element name="TrackFault" type="tns:TrackFault"/>
+<xs:complexType name="TrackFault">
+<xs:sequence/>
+</xs:complexType>
+<xs:element name="number" nillable="true" type="xs:string"/>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="deliveryResponse">
+    <wsdl:part element="tns:deliveryResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="quote">
+    <wsdl:part element="tns:quote" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="TrackFault">
+    <wsdl:part element="tns:TrackFault" name="TrackFault">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="track">
+    <wsdl:part element="tns:track" name="parameters">
+    </wsdl:part>
+    <wsdl:part element="tns:number" name="number">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="delivery">
+    <wsdl:part element="tns:delivery" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="DeliveryFault">
+    <wsdl:part element="tns:DeliveryFault" name="DeliveryFault">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="trackResponse">
+    <wsdl:part element="tns:trackResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="quoteResponse">
+    <wsdl:part element="tns:quoteResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="DeliveryNetwork">
+    <wsdl:operation name="quote">
+      <wsdl:input message="tns:quote" name="quote">
+    </wsdl:input>
+      <wsdl:output message="tns:quoteResponse" name="quoteResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:DeliveryFault" name="DeliveryFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="delivery">
+      <wsdl:input message="tns:delivery" name="delivery">
+    </wsdl:input>
+      <wsdl:output message="tns:deliveryResponse" name="deliveryResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:DeliveryFault" name="DeliveryFault">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="track">
+      <wsdl:input message="tns:track" name="track">
+    </wsdl:input>
+      <wsdl:output message="tns:trackResponse" name="trackResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:TrackFault" name="TrackFault">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="DeliveryNetworkServiceServiceSoapBinding" type="tns:DeliveryNetwork">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="quote">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="quote">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="quoteResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="DeliveryFault">
+        <soap:fault name="DeliveryFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="delivery">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="delivery">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="deliveryResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="DeliveryFault">
+        <soap:fault name="DeliveryFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="track">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="track">
+        <soap:header message="tns:track" part="number" use="literal">
+        </soap:header>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="trackResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="TrackFault">
+        <soap:fault name="TrackFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="DeliveryNetworkServiceService">
+    <wsdl:port binding="tns:DeliveryNetworkServiceServiceSoapBinding" name="DeliveryNetworkPort">
+      <soap:address location="http://localhost:8081/transport2"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,6 @@
+<command>
+	<customer first_name="Sebastien" last_name="Mosser" address="Antibes"></customer>
+	<products>
+		<product name="violon" reference="1v"></product>
+		<product name="flute" reference="3f"></product>
+		<product name="tambour" reference="2ta"></product></products></command>
