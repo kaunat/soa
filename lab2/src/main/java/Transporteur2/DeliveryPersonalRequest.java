@@ -2,8 +2,8 @@ package Transporteur2;
 
 import javax.xml.bind.annotation.*;
 
-@XmlType(name="DeliveryRequest")
-public class DeliveryRequest {
+@XmlType(name="DeliveryPersonalRequest")
+public class DeliveryPersonalRequest {
 	
 	@XmlElement(required=true, name="from_address")
 	public String fromAddress;

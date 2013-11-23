@@ -9,8 +9,8 @@ import javax.jws.WebService;
 @WebService(endpointInterface = "transport.DeliveryNetworkService")
 public class DeliveryNetworkServiceImpl implements DeliveryNetworkService {
 
-	public DeliveryResponse delivery(DeliveryRequest request) throws DeliveryFault {
-		DeliveryResponse response = new DeliveryResponse();
+	public DeliveryPersonalResponse delivery(DeliveryPersonalRequest request) throws DeliveryFault {
+		DeliveryPersonalResponse response = new DeliveryPersonalResponse();
 		DeliveryProperties properties = new DeliveryProperties();
 		
 		response.price = computePrice(properties);
@@ -20,8 +20,8 @@ public class DeliveryNetworkServiceImpl implements DeliveryNetworkService {
 		return response;
 	}
 
-	public DeliveryResponse quote(DeliveryRequest request) throws DeliveryFault {
-		DeliveryResponse response = new DeliveryResponse();
+	public DeliveryPersonalResponse quote(DeliveryPersonalRequest request) throws DeliveryFault {
+		DeliveryPersonalResponse response = new DeliveryPersonalResponse();
 		DeliveryProperties properties = new DeliveryProperties();
 		
 		response.price = computePrice(properties);
@@ -30,8 +30,8 @@ public class DeliveryNetworkServiceImpl implements DeliveryNetworkService {
 		return response;
 	}
 
-	public TrackResponse track(String packageNumber, TrackRequest request) throws TrackFault {
-		TrackResponse response = new TrackResponse();
+	public TrackPersonalResponse track(String packageNumber, TrackPersonalRequest request) throws TrackFault {
+		TrackPersonalResponse response = new TrackPersonalResponse();
 		
 		response.estimatedDate = computeEstimatedDate();
 		response.location = computeLocation();
@@ -61,7 +61,7 @@ public class DeliveryNetworkServiceImpl implements DeliveryNetworkService {
 		return cal;
 	}
 	
-	private String computePackageNumber(DeliveryProperties properties, DeliveryRequest request) {
+	private String computePackageNumber(DeliveryProperties properties, DeliveryPersonalRequest request) {
 		int weight = properties.weight;
 		int height = properties.height;
 		int width  = properties.width;

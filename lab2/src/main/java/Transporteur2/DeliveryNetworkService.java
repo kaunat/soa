@@ -7,18 +7,18 @@ public interface DeliveryNetworkService {
 
 	@WebMethod
 	@WebResult(name="delivery_response")
-	public DeliveryResponse delivery(@WebParam(name="delivery_request") DeliveryRequest request)
+	public DeliveryPersonalResponse delivery(@WebParam(name="delivery_request") DeliveryPersonalRequest request)
 		throws DeliveryFault;
 	
 	@WebMethod
 	@WebResult(name="quote_response")
-	public DeliveryResponse quote(@WebParam(name="quote_request") DeliveryRequest request)
+	public DeliveryPersonalResponse quote(@WebParam(name="quote_request") DeliveryPersonalRequest request)
 		throws DeliveryFault;
 	
 	@WebMethod
 	@WebResult(name="track_response")
-	public TrackResponse track(@WebParam(name="number", header=true) String packageNumber,
-								@WebParam(name="track_request") TrackRequest request)
+	public TrackPersonalResponse track(@WebParam(name="number", header=true) String packageNumber,
+								@WebParam(name="track_request") TrackPersonalRequest request)
 		throws TrackFault;
 
 }

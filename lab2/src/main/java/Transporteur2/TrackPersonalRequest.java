@@ -2,8 +2,8 @@ package Transporteur2;
 
 import javax.xml.bind.annotation.*;
 
-@XmlType(name="TrackRequest")
-public class TrackRequest {
+@XmlType(name="TrackPersonalRequest")
+public class TrackPersonalRequest {
 	
 	@XmlElement(name="delivery_number")
 	public String packageNumber;

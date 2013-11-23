@@ -3,8 +3,8 @@ package Transporteur2;
 import java.util.Calendar;
 import javax.xml.bind.annotation.*;
 
-@XmlType(name="TrackResponse")
-public class TrackResponse {
+@XmlType(name="TrackPersonalResponse")
+public class TrackPersonalResponse {
 	
 	@XmlElement(name="estimated_date")
 	public Calendar estimatedDate;

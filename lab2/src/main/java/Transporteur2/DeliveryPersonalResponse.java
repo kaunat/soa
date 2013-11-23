@@ -3,8 +3,8 @@ package Transporteur2;
 import java.util.Calendar;
 import javax.xml.bind.annotation.*;
 
-@XmlType(name="DeliveryResponse")
-public class DeliveryResponse {
+@XmlType(name="DeliveryPersonalResponse")
+public class DeliveryPersonalResponse {
 	
 	@XmlElement(name="price")
 	public int price;
