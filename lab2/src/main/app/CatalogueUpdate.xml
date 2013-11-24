@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:jersey="http://www.mulesoft.org/schema/mule/jersey" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:cxf="http://www.mulesoft.org/schema/mule/cxf" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:vm="http://www.mulesoft.org/schema/mule/vm" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/current/mule-vm.xsd
+http://www.mulesoft.org/schema/mule/cxf http://www.mulesoft.org/schema/mule/cxf/current/mule-cxf.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
+http://www.mulesoft.org/schema/mule/jersey http://www.mulesoft.org/schema/mule/jersey/current/mule-jersey.xsd">
+    <flow name="CatalogueUpdateFlow1" doc:name="CatalogueUpdateFlow1">
+        <http:inbound-endpoint exchange-pattern="request-response" host="localhost" port="8081" path="rest/catalogue" doc:name="HTTP"/>
+        <logger message="Begin of catalogue update request" level="INFO" doc:name="Logger"/>
+        <all doc:name="All">
+            <processor-chain>
+                <logger message="Catalogue update requested to supplier #1" level="INFO" doc:name="Logger"/>
+                <vm:outbound-endpoint exchange-pattern="one-way" path="vm/supplier1" doc:name="VM"/>
+                <logger message="Catalogue update finished for supplier #1" level="INFO" doc:name="Logger"/>
+            </processor-chain>
+            <processor-chain>
+                <logger message="Catalogue update requested to supplier #2" level="INFO" doc:name="Logger"/>
+                <vm:outbound-endpoint exchange-pattern="one-way" path="vm/supplier2" doc:name="VM"/>
+                <logger message="Catalogue update finished for supplier #2" level="INFO" doc:name="Logger"/>
+            </processor-chain>
+            <processor-chain>
+                <logger message="Catalogue update requested to supplier #3" level="INFO" doc:name="Logger"/>
+                <vm:outbound-endpoint exchange-pattern="one-way" path="vm/supplier3" doc:name="VM"/>
+                <logger message="Catalogue update finished for supplier #3" level="INFO" doc:name="Logger"/>
+            </processor-chain>
+        </all>
+        <logger message="End of catalogue update request" level="INFO" doc:name="Logger"/>
+    </flow>
+    <flow name="Supplier1Flow" doc:name="Supplier1Flow">
+        <vm:inbound-endpoint exchange-pattern="one-way" path="vm/supplier1" doc:name="VM"/>
+        <http:outbound-endpoint exchange-pattern="request-response" host="localhost" port="8081" path="CRM" method="POST" doc:name="HTTP"/>
+        <cxf:jaxws-service serviceClass="Fournisseur1.CRMService" doc:name="SOAP"/>
+        <component class="Fournisseur1.CRMServiceImpl" doc:name="Java"/>
+    </flow>
+    <flow name="Supplier2Flow" doc:name="Supplier2Flow">
+        <vm:inbound-endpoint exchange-pattern="one-way" path="vm/supplier2" doc:name="VM"/>
+        <http:outbound-endpoint exchange-pattern="request-response" host="localhost" port="8081" path="extern" method="POST" doc:name="HTTP"/>
+        <cxf:jaxws-service serviceClass="Fournisseur2.ClientExterieur" doc:name="SOAP"/>
+        <component class="Fournisseur2.ClientExterieurImpl" doc:name="Java"/>
+    </flow>
+    <flow name="Supplier3Flow" doc:name="Supplier3Flow">
+        <vm:inbound-endpoint exchange-pattern="one-way" path="vm/supplier3" doc:name="VM"/>
+        <http:outbound-endpoint exchange-pattern="request-response" host="localhost" port="8081" path="catalogue" method="POST" doc:name="HTTP"/>
+        <jersey:resources doc:name="REST">
+            <component class="mgd.CRMRest"/>
+        </jersey:resources>
+        <component class="mgd.CRMRest" doc:name="Java"/>
+    </flow>
+</mule>
