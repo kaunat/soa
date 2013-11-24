@@ -1,0 +1,23 @@
+<html>
+<head>
+<title>Interface Commande</title>
+</head>
+<body>
+<form action="http://localhost:8088/order" method="post">
+<label>Nom <input type="text" name="first_name" value="Dupont" /></label><br />
+<label>Prenom <input type="text" name="last_name" value="Jean" /></label><br />
+<label>Adresse <input type="text" name="address" value="1 rue ville" /></label><br />
+<label>Produit1 <input type="text" name="products[]" value="AA" /></label><br />
+<label>Produit2 <input type="text" name="products[]" value="BB" /></label><br />
+<label>Produit3 <input type="text" name="products[]" value="CC" /></label><br />
+<label>Produit4 <input type="text" name="products[]" value="DD" /></label><br />
+
+<label>Date plus proche <input type="radio" name="expect" value="0" checked /></label><br />
+<label>Prix mini <input type="radio" name="expect" value="1" /></label><br />
+
+<input type="submit" value="envoyer" />
+
+</form>
+
+</body>
+</html>

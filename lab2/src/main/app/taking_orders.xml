@@ -11,16 +11,20 @@ http://www.mulesoft.org/schema/mule/xml http://www.mulesoft.org/schema/mule/xml/
 http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd
 http://www.mulesoft.org/schema/mule/ee/data-mapper http://www.mulesoft.org/schema/mule/ee/data-mapper/current/mule-data-mapper.xsd">
     <data-mapper:config name="maporder_grf" transformationGraphPath="maporder.grf" doc:name="DataMapper"/>
-    <flow name="WebInterface" doc:name="WebInterface">
-        <http:outbound-endpoint exchange-pattern="one-way" host="localhost" port="8088" path="order" method="POST" contentType="text/plain" doc:name="HTTP Form"/>
-        <data-mapper:transform config-ref="maporder_grf" doc:name="DataMapper"/>
-        <file:outbound-endpoint path="/home/cgallesi/MuleStudio/workspace/soa/lab2/src/main/resources" outputPattern="sortie.txt" responseTimeout="10000" doc:name="File"/>
+    <data-mapper:config name="mapping_commandePOST_commandeXML" transformationGraphPath="mapping_commandePOST_commandeXML.grf" doc:name="mapping_commandePOST_commandeXML"/>
+    <flow name="TakingOrdersFlow2" doc:name="TakingOrdersFlow2">
+        <http:inbound-endpoint exchange-pattern="one-way" host="localhost" port="8088" path="order" doc:name="HTTP"/>
+        <data-mapper:transform config-ref="mapping_commandePOST_commandeXML" doc:name="DataMapper"/>
+        <logger message="Nouvelle commande web" level="INFO" doc:name="Logger"/>
+        <vm:outbound-endpoint exchange-pattern="one-way" path="vm/order" doc:name="VM"/>
     </flow>
+
     <flow name="TakingOrdersFlow1" doc:name="TakingOrdersFlow1">
         <file:inbound-endpoint path="./_inputs" moveToDirectory="./_outputs" responseTimeout="10000" doc:name="File">
-            <file:filename-regex-filter pattern="file:filename-regex-filter pattern=.*\.xml$" caseSensitive="true"/>
+            <file:filename-regex-filter pattern="command\.xml" caseSensitive="true"/>
+
         </file:inbound-endpoint>
-        <logger message="#[xpath:/command/customer]" level="INFO" doc:name="Logger"/>
+        <logger message="Nouvelle commande de #[xpath:/command/customer]" level="INFO" doc:name="Logger"/>
         <vm:outbound-endpoint exchange-pattern="one-way" path="vm/order" doc:name="VM"/>
     </flow>
 </mule>
