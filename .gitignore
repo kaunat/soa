@@ -35,3 +35,7 @@ local.properties
 
 # PDT-specific
 .buildpath
+
+
+mule-app.properties
+mule-deploy.properties
