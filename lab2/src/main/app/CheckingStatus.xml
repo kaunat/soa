@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:wmq="http://www.mulesoft.org/schema/mule/ee/wmq" xmlns:mulexml="http://www.mulesoft.org/schema/mule/xml" xmlns:jersey="http://www.mulesoft.org/schema/mule/jersey" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:vm="http://www.mulesoft.org/schema/mule/vm" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:cxf="http://www.mulesoft.org/schema/mule/cxf" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:spring="http://www.springframework.org/schema/beans" xmlns:core="http://www.mulesoft.org/schema/mule/core" version="EE-3.4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/current/mule-vm.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/cxf http://www.mulesoft.org/schema/mule/cxf/current/mule-cxf.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/jersey http://www.mulesoft.org/schema/mule/jersey/current/mule-jersey.xsd
+http://www.mulesoft.org/schema/mule/xml http://www.mulesoft.org/schema/mule/xml/current/mule-xml.xsd
+http://www.mulesoft.org/schema/mule/ee/wmq http://www.mulesoft.org/schema/mule/ee/wmq/current/mule-wmq-ee.xsd">
+    <flow name="CheckingStatusFlow3" doc:name="CheckingStatusFlow3">
+        <http:inbound-endpoint exchange-pattern="request-response" host="localhost" port="8081" path="checkingStatus" doc:name="HTTP"/>
+        <logger message="ici" level="INFO" doc:name="Logger"/>
+        <cxf:jaxws-service   doc:name="SOAP" port="DeliveryNetworkPort" serviceClass="services.OrderStatus"/>
+        <logger message="ohoh" level="INFO" doc:name="Logger"/>
+        <vm:outbound-endpoint exchange-pattern="request-response" path="/vm/transporteur2/OrderStatus" doc:name="OrderStatus"/>
+        <choice doc:name="Choice">
+            <when expression="#[payload]  != null">
+                <vm:outbound-endpoint exchange-pattern="one-way" path="/vm/modifyStatus" doc:name="modifyStatus"/>
+            </when>
+            <otherwise>
+                <vm:outbound-endpoint exchange-pattern="one-way" path="/vm/transporteur2/OrderStatus" doc:name="OrderStatus"/>
+            </otherwise>
+        </choice>
+    </flow>
+    <flow name="CheckingStatusFlow2" doc:name="CheckingStatusFlow2">
+        <vm:inbound-endpoint exchange-pattern="request-response" path="/vm/transporteur2/OrderStatus" doc:name="OrderStatus"/>
+        <cxf:jaxws-client operation="track" clientClass="transport.proxy.DeliveryNetworkServiceService" port="DeliveryNetworkPort" enableMuleSoapHeaders="true" doc:name="SOAP"/>
+        <http:outbound-endpoint exchange-pattern="request-response" host="localhost" port="8081" path="transporteur2" method="POST" doc:name="HTTP"/>
+    </flow>
+</mule>

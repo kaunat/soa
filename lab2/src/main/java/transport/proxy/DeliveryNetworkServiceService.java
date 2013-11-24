@@ -15,7 +15,7 @@ import javax.xml.ws.Service;
  * 
  */
 @WebServiceClient(name = "DeliveryNetworkServiceService", 
-                  wsdlLocation = "file:/home/cgallesi/MuleStudio/workspace/soa/lab2/src/main/resources/transport2.wsdl",
+                  wsdlLocation = "file:./src/main/resources/transport2.wsdl",
                   targetNamespace = "http://Transporteur2/") 
 public class DeliveryNetworkServiceService extends Service {
 
@@ -26,11 +26,11 @@ public class DeliveryNetworkServiceService extends Service {
     static {
         URL url = null;
         try {
-            url = new URL("file:/home/cgallesi/MuleStudio/workspace/soa/lab2/src/main/resources/transport2.wsdl");
+            url = new URL("file:./src/main/resources/transport2.wsdl");
         } catch (MalformedURLException e) {
             java.util.logging.Logger.getLogger(DeliveryNetworkServiceService.class.getName())
                 .log(java.util.logging.Level.INFO, 
-                     "Can not initialize the default wsdl from {0}", "file:/home/cgallesi/MuleStudio/workspace/soa/lab2/src/main/resources/transport2.wsdl");
+                     "Can not initialize the default wsdl from {0}", "file:./src/main/resources/transport2.wsdl");
         }
         WSDL_LOCATION = url;
     }
