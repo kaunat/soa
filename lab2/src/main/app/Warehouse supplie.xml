@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:vm="http://www.mulesoft.org/schema/mule/vm" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:cxf="http://www.mulesoft.org/schema/mule/cxf" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:data-mapper="http://www.mulesoft.org/schema/mule/ee/data-mapper" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:spring="http://www.springframework.org/schema/beans" xmlns:core="http://www.mulesoft.org/schema/mule/core" version="EE-3.4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/current/mule-vm.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/cxf http://www.mulesoft.org/schema/mule/cxf/current/mule-cxf.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
+http://www.mulesoft.org/schema/mule/ee/data-mapper http://www.mulesoft.org/schema/mule/ee/data-mapper/current/mule-data-mapper.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+	<!--
+    <data-mapper:config name="new_mapping_1_grf" transformationGraphPath="new_mapping_1.grf" doc:name="DataMapper"/>
+    -->
+    <data-mapper:config name="new_mapping_2_grf" transformationGraphPath="a/new_mapping_2.grf" doc:name="new_mapping_2_grf"/>
+    
+    <flow name="testFlow1" doc:name="testFlow1">
+        <vm:inbound-endpoint exchange-pattern="request-response" path="/vm/warehouse/OrderNearlyOutOfStockGoods" doc:name="OrderNearlyOutOfStockGoods"/>
+        <cxf:jaxws-client operation="getAllNearlyOutOfStockGoods" clientClass="client.stub.Security" port="WarehouseServicePort" doc:name="SOAP"/>
+        <http:outbound-endpoint exchange-pattern="request-response" host="localhost" port="8081" path="warehouse" method="POST" encoding="UTF-8" doc:name="HTTP"/>
+    </flow>
+    <flow name="testFlow3" doc:name="testFlow3">
+        <vm:inbound-endpoint exchange-pattern="request-response" path="/vm/warehouse/OrderGoods" doc:name="OrderGoods"/>
+        <cxf:jaxws-client operation="addDeliverie" clientClass="client.stub.Security" port="WarehouseServicePort" doc:name="SOAP"/>
+        <http:outbound-endpoint exchange-pattern="request-response" host="localhost" port="8081" path="warehouse" method="POST" doc:name="HTTP"/>
+    </flow>
+    <flow name="testFlow2" doc:name="testFlow2">
+        <http:inbound-endpoint exchange-pattern="request-response" host="localhost" port="8081" path="test" doc:name="HTTP"/>
+        <cxf:jaxws-service port="WarehouseServicePort" serviceClass="services.OrderOutOfStockGoods" enableMuleSoapHeaders="false" doc:name="SOAP"/>
+        <vm:outbound-endpoint exchange-pattern="request-response" path="/vm/warehouse/OrderNearlyOutOfStockGoods" doc:name="OrderNearlyOutOfStockGoods"/>
+        <append-string-transformer message=",&quot;date&quot;: &quot;23/11/2013&quot;, &quot;transporter&quot;: {&quot;id&quot;: &quot;1&quot;, &quot;name&quot;: &quot;Fedex&quot;, &quot;adress&quot;: &quot;Lyon&quot; }, &quot;warehouse&quot;: { &quot;id&quot;: &quot;1&quot;, &quot;name&quot;: &quot;Main&quot;, &quot;adress&quot;: &quot;Paris&quot; }}" doc:name="Append String"/>
+        <data-mapper:transform config-ref="new_mapping_2_grf" doc:name="DataMapper"/>
+        <vm:outbound-endpoint exchange-pattern="request-response" path="/vm/warehouse/OrderGoods" doc:name="OrderGoods"/>
+    </flow>
+</mule>

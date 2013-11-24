@@ -2,26 +2,19 @@
 <mule-configuration xmlns="http://www.mulesoft.com/tooling/messageflow" name="Warehouse supplie">
     <global-element name="DataMapper" type="http://www.mulesoft.org/schema/mule/ee/data-mapper/config" entity-id="DataMapper#1">
         <properties>
-            <property name="name" value="new_mapping_1_grf"/>
-            <property name="transformationGraphPath" value="new_mapping_1.grf"/>
-            <property name="auxiliary;index" value="1"/>
-        </properties>
-    </global-element>
-    <global-element name="new_mapping_2_grf" type="http://www.mulesoft.org/schema/mule/ee/data-mapper/config" entity-id="!!!b3a492df-9528-406a-8bed-a8fcf5fa6c23">
-        <properties>
-            <property name="doc:description"/>
-            <property name="doc:name" value="new_mapping_2_grf"/>
             <property name="name" value="new_mapping_2_grf"/>
-            <property name="transformationGraphPath" value="new_mapping_2.grf"/>
+            <property name="auxiliary;index" value="1"/>
+            <property name="transformationGraphPath" value="a/new_mapping_2.grf"/>
         </properties>
     </global-element>
-    <flow SubFlow="false" name="testFlow1" entity-id="d7a2385c-d67b-498a-8af7-e039e2accf14">
+    <flow SubFlow="false" name="testFlow1" entity-id="a757ea45-9e84-404c-b9fe-de5840248174">
         <properties>
             <property name="processingStrategy"/>
             <property name="processingStrategy2"/>
+            <property name="initialState"/>
             <property name="bussinessEventsLabel"/>
+            <property name="auxiliary;index" value="2"/>
             <property name="tracking:enable-default-events"/>
-            <property name="auxiliary;index" value="3"/>
         </properties>
         <lane hadOnlyOneElement="false" index="0" isChoiceOtherwiseLane="false" entity-id="compartment-lane#1">
             <graphicalData x="0" y="0" width="0" height="0"/>
@@ -38,7 +31,7 @@
                     <property name="path" value="/vm/warehouse/OrderNearlyOutOfStockGoods"/>
                     <property name="encoding"/>
                     <property name="responseTransformer-refs"/>
-                    <property name="auxiliary;index" value="4"/>
+                    <property name="auxiliary;index" value="3"/>
                     <property name="responseTimeout"/>
                     <property name="mimeType"/>
                     <property name="connector-ref"/>
@@ -47,17 +40,17 @@
             <pattern name="SOAP" type="http://www.mulesoft.org/schema/mule/cxf/soapComponent" entity-id="SOAP#1">
                 <graphicalData x="0" y="0" width="0" height="0"/>
                 <properties>
-                    <property name="port" value="WarehouseServicePort"/>
                     <property name="wsdlLocation"/>
-                    <property name="operation" value="getAllNearlyOutOfStockGoods"/>
+                    <property name="port" value="WarehouseServicePort"/>
                     <property name="serviceClass"/>
+                    <property name="operation" value="getAllNearlyOutOfStockGoods"/>
                     <property name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute" value="http://www.mulesoft.org/schema/mule/cxf/jaxws-client"/>
                     <property name="mtomEnabled"/>
                     <property name="enableMuleSoapHeaders"/>
-                    <property name="configuration-ref"/>
                     <property name="clientClass" value="client.stub.Security"/>
+                    <property name="configuration-ref"/>
+                    <property name="auxiliary;index" value="4"/>
                     <property name="decoupledEndpoint"/>
-                    <property name="auxiliary;index" value="5"/>
                 </properties>
             </pattern>
             <endpoint direction="Outbound" message-exchange-pattern="RequestResponse" name="HTTP" type="http://www.mulesoft.org/schema/mule/http/endpoint" entity-id="HTTP#1">
@@ -75,30 +68,30 @@
                     <property name="exchange-pattern" value="request-response"/>
                     <property name="tracking:enable-default-events"/>
                     <property name="ref"/>
-                    <property name="httpLabel"/>
                     <property name="transformer-refs"/>
+                    <property name="httpLabel"/>
                     <property name="address"/>
-                    <property name="encoding" value="UTF-8"/>
                     <property name="path" value="warehouse"/>
+                    <property name="encoding" value="UTF-8"/>
                     <property name="responseTransformer-refs"/>
                     <property name="method" value="POST"/>
                     <property name="user"/>
-                    <property name="mimeType"/>
+                    <property name="auxiliary;index" value="5"/>
                     <property name="responseTimeout"/>
-                    <property name="auxiliary;index" value="6"/>
+                    <property name="mimeType"/>
                     <property name="connector-ref"/>
                 </properties>
             </endpoint>
         </lane>
-        <apikit>false</apikit>
     </flow>
-    <flow SubFlow="false" name="testFlow3" entity-id="9989baf9-fdbf-452b-97c8-a44b9a2c0ab4">
+    <flow SubFlow="false" name="testFlow3" entity-id="f1d53aea-aa12-43d6-938d-264e638924df">
         <properties>
             <property name="processingStrategy"/>
             <property name="processingStrategy2"/>
+            <property name="initialState"/>
             <property name="bussinessEventsLabel"/>
+            <property name="auxiliary;index" value="6"/>
             <property name="tracking:enable-default-events"/>
-            <property name="auxiliary;index" value="7"/>
         </properties>
         <lane hadOnlyOneElement="false" index="0" isChoiceOtherwiseLane="false" entity-id="compartment-lane#2">
             <graphicalData x="0" y="0" width="0" height="0"/>
@@ -115,7 +108,7 @@
                     <property name="path" value="/vm/warehouse/OrderGoods"/>
                     <property name="encoding"/>
                     <property name="responseTransformer-refs"/>
-                    <property name="auxiliary;index" value="8"/>
+                    <property name="auxiliary;index" value="7"/>
                     <property name="responseTimeout"/>
                     <property name="mimeType"/>
                     <property name="connector-ref"/>
@@ -124,17 +117,17 @@
             <pattern name="SOAP" type="http://www.mulesoft.org/schema/mule/cxf/soapComponent" entity-id="SOAP#2">
                 <graphicalData x="0" y="0" width="0" height="0"/>
                 <properties>
-                    <property name="port" value="WarehouseServicePort"/>
                     <property name="wsdlLocation"/>
-                    <property name="operation" value="addDeliverie"/>
+                    <property name="port" value="WarehouseServicePort"/>
                     <property name="serviceClass"/>
+                    <property name="operation" value="addDeliverie"/>
                     <property name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute" value="http://www.mulesoft.org/schema/mule/cxf/jaxws-client"/>
                     <property name="mtomEnabled"/>
                     <property name="enableMuleSoapHeaders"/>
-                    <property name="configuration-ref"/>
                     <property name="clientClass" value="client.stub.Security"/>
+                    <property name="configuration-ref"/>
+                    <property name="auxiliary;index" value="8"/>
                     <property name="decoupledEndpoint"/>
-                    <property name="auxiliary;index" value="9"/>
                 </properties>
             </pattern>
             <endpoint direction="Outbound" message-exchange-pattern="RequestResponse" name="HTTP" type="http://www.mulesoft.org/schema/mule/http/endpoint" entity-id="HTTP#2">
@@ -152,40 +145,35 @@
                     <property name="exchange-pattern" value="request-response"/>
                     <property name="tracking:enable-default-events"/>
                     <property name="ref"/>
-                    <property name="httpLabel"/>
                     <property name="transformer-refs"/>
+                    <property name="httpLabel"/>
                     <property name="address"/>
-                    <property name="encoding"/>
                     <property name="path" value="warehouse"/>
+                    <property name="encoding"/>
                     <property name="responseTransformer-refs"/>
                     <property name="method" value="POST"/>
                     <property name="user"/>
-                    <property name="mimeType"/>
+                    <property name="auxiliary;index" value="9"/>
                     <property name="responseTimeout"/>
-                    <property name="auxiliary;index" value="10"/>
+                    <property name="mimeType"/>
                     <property name="connector-ref"/>
                 </properties>
             </endpoint>
         </lane>
-        <apikit>false</apikit>
     </flow>
-    <flow SubFlow="false" name="testFlow2" entity-id="a68798a1-8820-4cb5-ab2c-d3f06c96d30d">
+    <flow SubFlow="false" name="testFlow2" entity-id="d6f601ce-9cf7-4b36-81c9-c91e5d151fc3">
         <properties>
-            <property name="updated"/>
-            <property name="processingStrategy2" value=""/>
-            <property name="bussinessEventsLabel" value=""/>
-            <property name="tracking:enable-default-events" value="false"/>
-            <property name="auxiliary;erased;processingStrategy2" value="true"/>
-            <property name="auxiliary;index" value="11"/>
-            <property-collection name="@http://www.mulesoft.org/schema/mule/ee/tracking/transaction;315785392">
-                <property name="isProcessed$$$$" value="true"/>
-            </property-collection>
+            <property name="processingStrategy"/>
+            <property name="processingStrategy2"/>
+            <property name="initialState"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="auxiliary;index" value="10"/>
+            <property name="tracking:enable-default-events"/>
         </properties>
-        <description></description>
         <lane hadOnlyOneElement="false" index="0" isChoiceOtherwiseLane="false" entity-id="compartment-lane#3">
             <graphicalData x="0" y="0" width="0" height="0"/>
             <endpoint direction="Inbound" message-exchange-pattern="RequestResponse" name="HTTP" type="http://www.mulesoft.org/schema/mule/http/endpoint" entity-id="HTTP#3">
-                <graphicalData x="19" y="534" width="68" height="171"/>
+                <graphicalData x="0" y="0" width="0" height="0"/>
                 <properties>
                     <property name="port" value="8081"/>
                     <property name="host" value="localhost"/>
@@ -199,22 +187,22 @@
                     <property name="exchange-pattern" value="request-response"/>
                     <property name="tracking:enable-default-events"/>
                     <property name="ref"/>
-                    <property name="httpLabel"/>
                     <property name="transformer-refs"/>
+                    <property name="httpLabel"/>
                     <property name="address"/>
-                    <property name="encoding"/>
                     <property name="path" value="test"/>
+                    <property name="encoding"/>
                     <property name="responseTransformer-refs"/>
                     <property name="method"/>
                     <property name="user"/>
-                    <property name="mimeType"/>
+                    <property name="auxiliary;index" value="11"/>
                     <property name="responseTimeout"/>
-                    <property name="auxiliary;index" value="12"/>
+                    <property name="mimeType"/>
                     <property name="connector-ref"/>
                 </properties>
             </endpoint>
             <pattern name="SOAP" type="http://www.mulesoft.org/schema/mule/cxf/soapComponent" entity-id="SOAP#3">
-                <graphicalData x="147" y="534" width="68" height="171"/>
+                <graphicalData x="0" y="0" width="0" height="0"/>
                 <properties>
                     <property name="port" value="WarehouseServicePort"/>
                     <property name="wsdlLocation"/>
@@ -227,13 +215,13 @@
                     <property name="onException"/>
                     <property name="service"/>
                     <property name="mtomEnabled"/>
-                    <property name="enableMuleSoapHeaders" value="false"/>
                     <property name="soapVersion"/>
-                    <property name="auxiliary;index" value="13"/>
+                    <property name="enableMuleSoapHeaders" value="false"/>
+                    <property name="auxiliary;index" value="12"/>
                 </properties>
             </pattern>
             <endpoint direction="Outbound" message-exchange-pattern="OneWay" name="OrderNearlyOutOfStockGoods" type="http://www.mulesoft.org/schema/mule/vm/endpoint" entity-id="VM#3">
-                <graphicalData x="275" y="534" width="174" height="69"/>
+                <graphicalData x="0" y="0" width="0" height="0"/>
                 <properties>
                     <property name="businessEventsLabel"/>
                     <property name="disableTransportTransformer"/>
@@ -245,35 +233,37 @@
                     <property name="path" value="/vm/warehouse/OrderNearlyOutOfStockGoods"/>
                     <property name="encoding"/>
                     <property name="responseTransformer-refs"/>
-                    <property name="auxiliary;index" value="14"/>
+                    <property name="auxiliary;index" value="13"/>
                     <property name="responseTimeout"/>
                     <property name="mimeType"/>
                     <property name="connector-ref"/>
                 </properties>
-                <description></description>
             </endpoint>
-            <pattern name="Append String" type="http://www.mulesoft.org/schema/mule/core/append-string-transformer" entity-id="23943ccc-412a-4aa2-b552-7bd32eec4770">
-                <graphicalData x="637" y="534" width="90" height="69"/>
+            <pattern name="Append String" type="http://www.mulesoft.org/schema/mule/core/append-string-transformer" entity-id="Append String#1">
+                <graphicalData x="0" y="0" width="0" height="0"/>
                 <properties>
-                    <property name="auxiliary;erased;mimeType" value="true"/>
                     <property name="message" value=",&quot;date&quot;: &quot;23/11/2013&quot;, &quot;transporter&quot;: {&quot;id&quot;: &quot;1&quot;, &quot;name&quot;: &quot;Fedex&quot;, &quot;adress&quot;: &quot;Lyon&quot; }, &quot;warehouse&quot;: { &quot;id&quot;: &quot;1&quot;, &quot;name&quot;: &quot;Main&quot;, &quot;adress&quot;: &quot;Paris&quot; }}"/>
-                    <property name="returnClass" value=""/>
-                    <property name="ignoreBadInput" value="false"/>
-                    <property name="updated"/>
-                    <property name="auxiliary;erased;encoding" value="true"/>
-                    <property name="encoding" value=""/>
-                    <property name="mimeType" value=""/>
+                    <property name="returnClass"/>
+                    <property name="ignoreBadInput"/>
+                    <property name="encoding"/>
+                    <property name="auxiliary;index" value="14"/>
+                    <property name="mimeType"/>
                 </properties>
-                <description></description>
             </pattern>
-            <pattern name="DataMapper" type="http://www.mulesoft.org/schema/mule/ee/data-mapper/data-mapper-connector" entity-id="77b8b312-208e-472b-baad-7ca95124e299">
-                <graphicalData x="787" y="534" width="79" height="69"/>
+            <pattern name="DataMapper" type="http://www.mulesoft.org/schema/mule/ee/data-mapper/data-mapper-connector" entity-id="DataMapper#2">
+                <graphicalData x="0" y="0" width="0" height="0"/>
                 <properties>
+                    <property name="returnClass"/>
+                    <property name="stream"/>
+                    <property name="input-ref"/>
+                    <property name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute" value="http://www.mulesoft.org/schema/mule/ee/data-mapper/transform"/>
+                    <property name="pipeSize"/>
                     <property name="config-ref" value="new_mapping_2_grf"/>
+                    <property name="auxiliary;index" value="15"/>
                 </properties>
             </pattern>
             <endpoint direction="Outbound" message-exchange-pattern="OneWay" name="OrderGoods" type="http://www.mulesoft.org/schema/mule/vm/endpoint" entity-id="VM#4">
-                <graphicalData x="926" y="534" width="78" height="69"/>
+                <graphicalData x="0" y="0" width="0" height="0"/>
                 <properties>
                     <property name="businessEventsLabel"/>
                     <property name="disableTransportTransformer"/>
@@ -285,14 +275,13 @@
                     <property name="path" value="/vm/warehouse/OrderGoods"/>
                     <property name="encoding"/>
                     <property name="responseTransformer-refs"/>
-                    <property name="auxiliary;index" value="18"/>
+                    <property name="auxiliary;index" value="16"/>
                     <property name="responseTimeout"/>
                     <property name="mimeType"/>
                     <property name="connector-ref"/>
                 </properties>
             </endpoint>
         </lane>
-        <apikit>false</apikit>
     </flow>
     <description></description>
 </mule-configuration>
