@@ -1,9 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:vm="http://www.mulesoft.org/schema/mule/vm" xmlns:data-mapper="http://www.mulesoft.org/schema/mule/ee/data-mapper" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:email="http://www.mulesoft.org/schema/mule/email" xmlns:spring="http://www.springframework.org/schema/beans" xmlns:core="http://www.mulesoft.org/schema/mule/core" version="EE-3.4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/current/mule-vm.xsd
+<mule xmlns:cxf="http://www.mulesoft.org/schema/mule/cxf" xmlns:smtps="http://www.mulesoft.org/schema/mule/smtps" xmlns:smtp="http://www.mulesoft.org/schema/mule/smtp" xmlns:file="http://www.mulesoft.org/schema/mule/file" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:jersey="http://www.mulesoft.org/schema/mule/jersey" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:mulexml="http://www.mulesoft.org/schema/mule/xml" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:vm="http://www.mulesoft.org/schema/mule/vm" xmlns:data-mapper="http://www.mulesoft.org/schema/mule/ee/data-mapper" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:email="http://www.mulesoft.org/schema/mule/email" xmlns:spring="http://www.springframework.org/schema/beans" xmlns:core="http://www.mulesoft.org/schema/mule/core" version="EE-3.4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/current/mule-vm.xsd
 http://www.mulesoft.org/schema/mule/ee/data-mapper http://www.mulesoft.org/schema/mule/ee/data-mapper/current/mule-data-mapper.xsd
 http://www.mulesoft.org/schema/mule/email http://www.mulesoft.org/schema/mule/email/current/mule-email.xsd
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
 http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd">
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
+http://www.mulesoft.org/schema/mule/xml http://www.mulesoft.org/schema/mule/xml/current/mule-xml.xsd
+http://www.mulesoft.org/schema/mule/jersey http://www.mulesoft.org/schema/mule/jersey/current/mule-jersey.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd
+http://www.mulesoft.org/schema/mule/smtp http://www.mulesoft.org/schema/mule/smtp/current/mule-smtp.xsd
+http://www.mulesoft.org/schema/mule/smtps http://www.mulesoft.org/schema/mule/smtps/current/mule-smtps.xsd
+http://www.mulesoft.org/schema/mule/cxf http://www.mulesoft.org/schema/mule/cxf/current/mule-cxf.xsd">
+
+    <!-- 
+    <data-mapper:config name="new_mapping_grf" transformationGraphPath="new_mapping_1.grf" doc:name="DataMapper"/>
+    <data-mapper:config name="mappingProduct_grf" transformationGraphPath="mappingProduct.grf" doc:name="DataMapper"/>    
+    <data-mapper:config name="prodmap_grf" transformationGraphPath="prodmap.grf" doc:name="DataMapper"/>
+    -->
+    <data-mapper:config name="json_to_xml_product_catalogue_grf" transformationGraphPath="m/json_to_xml_product_catalogue.grf" doc:name="DataMapper"/>
+    <data-mapper:config name="produit_grf" transformationGraphPath="m/produit.grf" doc:name="DataMapper"/>
+    <data-mapper:config name="mapclienttoxml_grf" transformationGraphPath="m/mapclienttoxml.grf" doc:name="DataMapper"/>
+    
+    
+    <flow name="getCatalogue" doc:name="getCatalogue">
+        <http:inbound-endpoint exchange-pattern="request-response" host="localhost" port="8081" path="rest" doc:name="HTTP"/>
+        <jersey:resources doc:name="REST">
+            <component class="mgd.CRMRest"/>
+        </jersey:resources>
+    </flow>
+    <flow name="workedPrintedCatalogue" doc:name="workedPrintedCatalogue">
+        <http:inbound-endpoint exchange-pattern="request-response" host="localhost" port="8083" path="workedCatalogue" doc:name="HTTP"/>
+        <http:outbound-endpoint exchange-pattern="request-response" host="localhost" port="8081" path="rest/catalogue" method="GET" doc:name="get catalogue"/>
+        <data-mapper:transform config-ref="json_to_xml_product_catalogue_grf" doc:name="DataMapper"/>
+        <smtps:outbound-endpoint host="smtp.gmail.com" port="465" user="margot.soa1" password="mdpmargotSOA1" to="imprimeursoa1@gmail.com" from="margot.soa1@gmail.com" subject="printed Catatlogue MGD" responseTimeout="10000" doc:name="SMTP"/>
+    </flow>
+    <flow name="realPrintedCatalogue" doc:name="realPrintedCatalogue">
+        <http:inbound-endpoint exchange-pattern="request-response" host="localhost" port="8083" path="printCatalogue" doc:name="HTTP"/>
+        <http:outbound-endpoint exchange-pattern="request-response" host="localhost" port="8081" path="rest/catalogue" method="GET" doc:name="get catalogue"/>
+        <data-mapper:transform config-ref="produit_grf" doc:name="JSON to XML"/>
+        <logger message="#[xpath:/object/catalogue/produit/reference]" level="INFO" doc:name="Logger"/>
+        <enricher source="#[xpath:/object/clients]" target="#[xpath:/object]" doc:name="Message Enricher">
+            <vm:outbound-endpoint exchange-pattern="request-response" path="/vm/getClients" doc:name="getClients"/>
+        </enricher>
+        <smtps:outbound-endpoint host="smtp.gmail.com" port="465" user="margot.soa1" password="mdpmargotSOA1" to="bastaert.margot@sfr.fr" from="margot.soa1@gmail.com" subject="test soa" responseTimeout="10000" doc:name="SMTP"/>
+    </flow>
+    <flow name="PrintedCatalogueFlow2" doc:name="PrintedCatalogueFlow2">
+        <http:inbound-endpoint exchange-pattern="request-response" host="localhost" port="8082" path="rest" doc:name="HTTP"/>
+        <jersey:resources doc:name="REST">
+            <component class="mgd.CustomerRest"/>
+        </jersey:resources>
+    </flow>
+    <flow name="PrintedCatalogueFlow4" doc:name="PrintedCatalogueFlow4">
+        <vm:inbound-endpoint exchange-pattern="request-response" path="/vm/getClients" doc:name="getClients"/>
+        <http:outbound-endpoint exchange-pattern="request-response" host="localhost" port="8082" path="rest/customer" method="GET" doc:name="HTTP"/>
+        <data-mapper:transform config-ref="mapclienttoxml_grf" doc:name="DataMapper"/>
+        <logger message="#[xpath:/object/clients/nom]" level="INFO" doc:name="Logger"/>
+    </flow>
 </mule>

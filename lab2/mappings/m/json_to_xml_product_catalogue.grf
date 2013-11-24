@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?><Graph author="user" created="Sun Nov 24 10:29:31 CET 2013" guiVersion="3.4.0.P" id="1385285873991" licenseCode="Unlicensed" licenseType="Unknown" modified="Sun Nov 24 10:29:31 CET 2013" modifiedBy="user" name="json_to_xml_product_catalogue_grf" preview-file="C:/Users/user/Desktop/testMule/bin/catalogue.JSON" revision="1.0" showComponentDetails="false">
+<Global>
+<Metadata __index="0" __referenceCounter="1" __sourcePath="{}/object/catalogue" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _id="__id" _metadataParentId="8d1e3476-bc26-44f3-8b43-a54356bc7104" _parent_id="__parent_id" _type="Input" id="124fee82-566c-4ff9-938e-f5cd65b502c6">
+<Record fieldDelimiter="|" name="catalogue" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_parent_id" __systemManaged="true" label="__parent_id" name="__parent_id" type="string"/>
+<Field __artificialType="_id" __systemManaged="true" label="__id" name="__id" type="string"/>
+<Field __sourcePath="{}/object/catalogue/nombre" containerType="SINGLE" label="nombre" name="nombre" type="number"/>
+<Field __sourcePath="{}/object/catalogue/produit/reference" containerType="SINGLE" label="reference" name="reference" type="string"/>
+<Field __sourcePath="{}/object/catalogue/produit/nom" containerType="SINGLE" label="nom" name="nom" type="string"/>
+<Field __sourcePath="{}/object/catalogue/produit/categorie" containerType="SINGLE" label="categorie" name="categorie" type="string"/>
+<Field __sourcePath="{}/object/catalogue/produit/prix" containerType="SINGLE" label="prix" name="prix" type="number"/>
+</Record>
+</Metadata>
+<Metadata __index="0" __referenceCounter="1" __sourcePath="{}/listProduct/catalogue" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _id="__id" _metadataParentId="88deae47-e6b4-4506-8ee0-597d47c71c1f" _parent_id="__parent_id" _type="Output" id="63156388-2caf-46dd-b6f8-4b3a1bac660e">
+<Record fieldDelimiter="|" name="catalogue" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_parent_id" __systemManaged="true" name="__parent_id" type="string"/>
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="0" __sourcePath="{}/listProduct/catalogue/produit/reference" containerType="SINGLE" label="reference" name="reference" type="string"/>
+<Field __index="1" __sourcePath="{}/listProduct/catalogue/produit/nom" containerType="SINGLE" label="nom" name="nom" type="string"/>
+<Field __index="2" __sourcePath="{}/listProduct/catalogue/produit/categorie" containerType="SINGLE" label="categorie" name="categorie" type="string"/>
+<Field __index="3" __sourcePath="{}/listProduct/catalogue/produit/prix" containerType="SINGLE" label="prix" name="prix" type="number"/>
+<Field __index="4" __sourcePath="{}/listProduct/catalogue/produit/nombre" containerType="SINGLE" label="nombre" name="nombre" type="number"/>
+</Record>
+</Metadata>
+<Metadata __index="0" __referenceCounter="1" __sourcePath="{}/listProduct" _dataStructure="OBJECT" _id="__id" _type="Output" id="88deae47-e6b4-4506-8ee0-597d47c71c1f">
+<Record fieldDelimiter="|" name="listProduct" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+</Record>
+</Metadata>
+<Metadata __index="0" __referenceCounter="1" __sourcePath="{}/object" _dataStructure="OBJECT" _id="__id" _type="Input" id="8d1e3476-bc26-44f3-8b43-a54356bc7104">
+<Record fieldDelimiter="|" name="object" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" label="__id" name="__id" type="string"/>
+</Record>
+</Metadata>
+<Dictionary>
+<Entry id="DictionaryEntry0" input="true" name="inputPayload" output="false" type="object"/>
+<Entry id="DictionaryEntry1" input="false" name="outputPayload" output="true" type="object"/>
+</Dictionary>
+</Global>
+<Phase number="0">
+<Node charset="UTF-8" enabled="enabled" fileURL="dict:outputPayload" guiName="XML WRITER" guiX="900" guiY="20" id="EXT_XML_WRITER0" type="EXT_XML_WRITER">
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<listProduct xmlns:clover="http://www.cloveretl.com/ns/xmlmapping" clover:inPort="0">
+  <catalogue clover:inPort="1" clover:key="__parent_id" clover:parentKey="__id">
+    <produit>
+      <reference>$1.reference</reference>
+      <nom>$1.nom</nom>
+      <categorie>$1.categorie</categorie>
+      <prix>$1.prix</prix>
+      <nombre>$1.nombre</nombre>
+    </produit>
+  </catalogue>
+</listProduct>]]></attr>
+<attr name="_data_format"><![CDATA[XML]]></attr>
+</Node>
+<Node enabled="enabled" guiName="Foreach 'catalogue' -&gt; 'catalogue'" guiX="460" guiY="120" id="FOREACH_CATALOGUE_CATALOGUE" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
+<attr name="melScript"><![CDATA[//MEL
+//START -> DO NOT REMOVE
+output.__id = input.__id;
+output.__parent_id = input.__parent_id;
+//END -> DO NOT REMOVE
+output.nombre = input.nombre;
+output.reference = input.reference;
+output.nom = input.nom;
+output.categorie = input.categorie;
+output.prix = input.prix;
+]]></attr>
+</Node>
+<Node enabled="enabled" guiName="Foreach 'object' -&gt; 'listProduct'" guiX="460" guiY="20" id="FOREACH_OBJECT_LIST_PRODUCT" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
+<attr name="melScript"><![CDATA[//MEL
+//START -> DO NOT REMOVE
+output.__id = input.__id;
+//END -> DO NOT REMOVE
+]]></attr>
+</Node>
+<Node charset="UTF-8" enabled="enabled" fileURL="dict:inputPayload" guiName="JSON READER" guiX="20" guiY="20" id="JSON_READER0" type="JSON_READER">
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Context xpath="/root">
+  <Context outPort="0" sequenceField="__id" xpath="object">
+    <Context generatedKey="__parent_id" outPort="1" parentKey="__id" sequenceField="__id" xpath="catalogue">
+      <Mapping cloverField="nombre" trim="true" xpath="nombre"/>
+      <Mapping cloverField="reference" trim="true" xpath="produit/reference"/>
+      <Mapping cloverField="nom" trim="true" xpath="produit/nom"/>
+      <Mapping cloverField="categorie" trim="true" xpath="produit/categorie"/>
+      <Mapping cloverField="prix" trim="true" xpath="produit/prix"/>
+    </Context>
+  </Context>
+</Context>
+]]></attr>
+<attr name="_data_format"><![CDATA[JSON]]></attr>
+<attr name="jsonSchemaURL"><![CDATA[C:\Users\user\Desktop\testMule\bin\catalogue.JSON]]></attr>
+</Node>
+<Edge debugMode="true" fromNode="FOREACH_CATALOGUE_CATALOGUE:0" guiBendpoints="" id="Edge3" inPort="Port 1 (in)" metadata="63156388-2caf-46dd-b6f8-4b3a1bac660e" outPort="Port 0 (out)" toNode="EXT_XML_WRITER0:1"/>
+<Edge debugMode="true" fromNode="FOREACH_OBJECT_LIST_PRODUCT:0" guiBendpoints="" id="Edge1" inPort="Port 0 (in)" metadata="88deae47-e6b4-4506-8ee0-597d47c71c1f" outPort="Port 0 (out)" toNode="EXT_XML_WRITER0:0"/>
+<Edge debugMode="true" fromNode="JSON_READER0:0" guiBendpoints="" id="Edge0" inPort="Port 0 (in)" metadata="8d1e3476-bc26-44f3-8b43-a54356bc7104" outPort="Port 0 (out)" toNode="FOREACH_OBJECT_LIST_PRODUCT:0"/>
+<Edge debugMode="true" fromNode="JSON_READER0:1" guiBendpoints="" id="Edge2" inPort="Port 0 (in)" metadata="124fee82-566c-4ff9-938e-f5cd65b502c6" outPort="Port 1 (out)" toNode="FOREACH_CATALOGUE_CATALOGUE:0"/>
+</Phase>
+</Graph>

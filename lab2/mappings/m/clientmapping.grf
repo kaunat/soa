@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?><Graph author="user" created="Sat Nov 23 16:59:00 CET 2013" guiVersion="3.4.0.P" id="1385223755319" licenseCode="Unlicensed" licenseType="Unknown" modified="Sat Nov 23 16:59:00 CET 2013" modifiedBy="user" name="clientmapping_grf" preview-file="C:/Users/user/Desktop/testMule/bin/customer.JSON" revision="1.0" showComponentDetails="false">
+<Global>
+<Metadata __index="0" __referenceCounter="1" __sourcePath="{}/object/clients" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _id="__id" _metadataParentId="94c1d168-a892-4102-ad9f-5c0af3281b3d" _parent_id="__parent_id" _type="Input" id="eb72e760-3ce6-4668-b7a5-ddbcbb8225c8">
+<Record fieldDelimiter="|" name="clients" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_parent_id" __systemManaged="true" label="__parent_id" name="__parent_id" type="string"/>
+<Field __artificialType="_id" __systemManaged="true" label="__id" name="__id" type="string"/>
+<Field __sourcePath="{}/object/clients/id" containerType="SINGLE" label="id" name="id" type="string"/>
+<Field __sourcePath="{}/object/clients/nom" containerType="SINGLE" label="nom" name="nom" type="string"/>
+<Field __sourcePath="{}/object/clients/prenom" containerType="SINGLE" label="prenom" name="prenom" type="string"/>
+<Field __sourcePath="{}/object/clients/adresse" containerType="SINGLE" label="adresse" name="adresse" type="string"/>
+</Record>
+</Metadata>
+<Metadata __index="0" __referenceCounter="1" __sourcePath="{}/object/clients" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _id="__id" _metadataParentId="d0b89ed1-265a-4975-b605-28c6531ad8ef" _parent_id="__parent_id" _type="Output" id="69c1e492-ba7e-440a-898e-30ed27205eba">
+<Record fieldDelimiter="|" name="clients" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_parent_id" __systemManaged="true" name="__parent_id" type="string"/>
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="0" __sourcePath="{}/object/clients/id" containerType="SINGLE" label="id" name="id" type="string"/>
+<Field __index="1" __sourcePath="{}/object/clients/nom" containerType="SINGLE" label="nom" name="nom" type="string"/>
+<Field __index="2" __sourcePath="{}/object/clients/prenom" containerType="SINGLE" label="prenom" name="prenom" type="string"/>
+<Field __index="3" __sourcePath="{}/object/clients/adresse" containerType="SINGLE" label="adresse" name="adresse" type="string"/>
+</Record>
+</Metadata>
+<Metadata __index="0" __referenceCounter="1" __sourcePath="{}/object/clients/commandes" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _id="__id" _metadataParentId="eb72e760-3ce6-4668-b7a5-ddbcbb8225c8" _parent_id="__parent_id" _type="Input" id="ab7a3ba0-950b-4de8-93ce-db2d8a17e18b">
+<Record fieldDelimiter="|" name="commandes" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_parent_id" __systemManaged="true" label="__parent_id" name="__parent_id" type="string"/>
+<Field __artificialType="_id" __systemManaged="true" label="__id" name="__id" type="string"/>
+<Field __sourcePath="{}/object/clients/commandes/date" containerType="SINGLE" label="date" name="date" type="string"/>
+<Field __sourcePath="{}/object/clients/commandes/total" containerType="SINGLE" label="total" name="total" type="number"/>
+</Record>
+</Metadata>
+<Metadata __index="4" __referenceCounter="1" __sourcePath="{}/object/clients/commandes" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _id="__id" _metadataParentId="69c1e492-ba7e-440a-898e-30ed27205eba" _parent_id="__parent_id" _type="Output" id="6f41954d-7a14-491e-9c4c-99963bea5439">
+<Record fieldDelimiter="|" name="commandes" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_parent_id" __systemManaged="true" name="__parent_id" type="string"/>
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="4" __sourcePath="{}/object/clients/commandes/date" containerType="SINGLE" label="date" name="date" type="string"/>
+<Field __index="5" __sourcePath="{}/object/clients/commandes/total" containerType="SINGLE" label="total" name="total" type="number"/>
+</Record>
+</Metadata>
+<Metadata __index="0" __referenceCounter="1" __sourcePath="{}/object" _dataStructure="OBJECT" _id="__id" _type="Input" id="94c1d168-a892-4102-ad9f-5c0af3281b3d">
+<Record fieldDelimiter="|" name="object" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" label="__id" name="__id" type="string"/>
+</Record>
+</Metadata>
+<Metadata __index="0" __referenceCounter="1" __sourcePath="{}/object" _dataStructure="OBJECT" _id="__id" _type="Output" id="d0b89ed1-265a-4975-b605-28c6531ad8ef">
+<Record fieldDelimiter="|" name="object" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+</Record>
+</Metadata>
+<Metadata __index="0" __referenceCounter="1" __sourcePath="{}/object/clients/commandes/produits" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _id="__id" _metadataParentId="ab7a3ba0-950b-4de8-93ce-db2d8a17e18b" _parent_id="__parent_id" _type="Input" id="d7d9ec58-a250-4859-91be-e61a3078269c">
+<Record fieldDelimiter="|" name="produits" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_parent_id" __systemManaged="true" label="__parent_id" name="__parent_id" type="string"/>
+<Field __artificialType="_id" __systemManaged="true" label="__id" name="__id" type="string"/>
+<Field __sourcePath="{}/object/clients/commandes/produits/nombre" containerType="SINGLE" label="nombre" name="nombre" type="number"/>
+<Field __sourcePath="{}/object/clients/commandes/produits/produit/reference" containerType="SINGLE" label="reference" name="reference" type="string"/>
+<Field __sourcePath="{}/object/clients/commandes/produits/produit/nom" containerType="SINGLE" label="nom" name="nom" type="string"/>
+<Field __sourcePath="{}/object/clients/commandes/produits/produit/categorie" containerType="SINGLE" label="categorie" name="categorie" type="string"/>
+<Field __sourcePath="{}/object/clients/commandes/produits/produit/prix" containerType="SINGLE" label="prix" name="prix" type="number"/>
+</Record>
+</Metadata>
+<Metadata __index="6" __referenceCounter="1" __sourcePath="{}/object/clients/commandes/produits" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _id="__id" _metadataParentId="6f41954d-7a14-491e-9c4c-99963bea5439" _parent_id="__parent_id" _type="Output" id="376fe9ae-823e-4290-b436-2c9aaa0b14a3">
+<Record fieldDelimiter="|" name="produits" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_parent_id" __systemManaged="true" name="__parent_id" type="string"/>
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="6" __sourcePath="{}/object/clients/commandes/produits/nombre" containerType="SINGLE" label="nombre" name="nombre" type="number"/>
+<Field __index="7" __sourcePath="{}/object/clients/commandes/produits/produit/reference" containerType="SINGLE" label="reference" name="reference" type="string"/>
+<Field __index="8" __sourcePath="{}/object/clients/commandes/produits/produit/nom" containerType="SINGLE" label="nom" name="nom" type="string"/>
+<Field __index="9" __sourcePath="{}/object/clients/commandes/produits/produit/categorie" containerType="SINGLE" label="categorie" name="categorie" type="string"/>
+<Field __index="10" __sourcePath="{}/object/clients/commandes/produits/produit/prix" containerType="SINGLE" label="prix" name="prix" type="number"/>
+</Record>
+</Metadata>
+<Dictionary>
+<Entry id="DictionaryEntry0" input="true" name="inputPayload" output="false" type="object"/>
+<Entry id="DictionaryEntry1" input="false" name="outputPayload" output="true" type="object"/>
+</Dictionary>
+</Global>
+<Phase number="0">
+<Node charset="UTF-8" enabled="enabled" fileURL="dict:outputPayload" guiName="XML WRITER" guiX="900" guiY="20" id="EXT_XML_WRITER0" type="EXT_XML_WRITER">
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<object xmlns:clover="http://www.cloveretl.com/ns/xmlmapping" clover:inPort="0">
+  <clients clover:inPort="1" clover:key="__parent_id" clover:parentKey="__id">
+    <id>$1.id</id>
+    <nom>$1.nom</nom>
+    <prenom>$1.prenom</prenom>
+    <adresse>$1.adresse</adresse>
+    <commandes clover:inPort="2" clover:key="__parent_id" clover:parentKey="__id">
+      <date>$2.date</date>
+      <total>$2.total</total>
+      <produits clover:inPort="3" clover:key="__parent_id" clover:parentKey="__id">
+        <nombre>$3.nombre</nombre>
+        <produit>
+          <reference>$3.reference</reference>
+          <nom>$3.nom</nom>
+          <categorie>$3.categorie</categorie>
+          <prix>$3.prix</prix>
+        </produit>
+      </produits>
+    </commandes>
+  </clients>
+</object>]]></attr>
+<attr name="_data_format"><![CDATA[XML]]></attr>
+</Node>
+<Node enabled="enabled" guiName="Foreach 'clients' -&gt; 'clients'" guiX="460" guiY="120" id="FOREACH_CLIENTS_CLIENTS" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
+<attr name="melScript"><![CDATA[//MEL
+//START -> DO NOT REMOVE
+output.__id = input.__id;
+output.__parent_id = input.__parent_id;
+//END -> DO NOT REMOVE
+output.id = input.id;
+output.nom = input.nom;
+output.prenom = input.prenom;
+output.adresse = input.adresse;
+]]></attr>
+</Node>
+<Node enabled="enabled" guiName="Foreach 'commandes' -&gt; 'commandes'" guiX="460" guiY="220" id="FOREACH_COMMANDES_COMMANDES" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
+<attr name="melScript"><![CDATA[//MEL
+//START -> DO NOT REMOVE
+output.__id = input.__id;
+output.__parent_id = input.__parent_id;
+//END -> DO NOT REMOVE
+output.date = input.date;
+output.total = input.total;
+]]></attr>
+</Node>
+<Node enabled="enabled" guiName="Foreach 'object' -&gt; 'object'" guiX="460" guiY="20" id="FOREACH_OBJECT_OBJECT" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
+<attr name="melScript"><![CDATA[//MEL
+//START -> DO NOT REMOVE
+output.__id = input.__id;
+//END -> DO NOT REMOVE
+]]></attr>
+</Node>
+<Node enabled="enabled" guiName="Foreach 'produits' -&gt; 'produits'" guiX="460" guiY="320" id="FOREACH_PRODUITS_PRODUITS" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
+<attr name="melScript"><![CDATA[//MEL
+//START -> DO NOT REMOVE
+output.__id = input.__id;
+output.__parent_id = input.__parent_id;
+//END -> DO NOT REMOVE
+output.nombre = input.nombre;
+output.reference = input.reference;
+output.nom = input.nom;
+output.categorie = input.categorie;
+output.prix = input.prix;
+]]></attr>
+</Node>
+<Node charset="UTF-8" enabled="enabled" fileURL="dict:inputPayload" guiName="JSON READER" guiX="20" guiY="20" id="JSON_READER0" type="JSON_READER">
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Context xpath="/root">
+  <Context outPort="0" sequenceField="__id" xpath="object">
+    <Context generatedKey="__parent_id" outPort="1" parentKey="__id" sequenceField="__id" xpath="clients">
+      <Mapping cloverField="id" trim="true" xpath="id"/>
+      <Mapping cloverField="nom" trim="true" xpath="nom"/>
+      <Mapping cloverField="prenom" trim="true" xpath="prenom"/>
+      <Mapping cloverField="adresse" trim="true" xpath="adresse"/>
+      <Context generatedKey="__parent_id" outPort="2" parentKey="__id" sequenceField="__id" xpath="commandes">
+        <Mapping cloverField="date" trim="true" xpath="date"/>
+        <Mapping cloverField="total" trim="true" xpath="total"/>
+        <Context generatedKey="__parent_id" outPort="3" parentKey="__id" sequenceField="__id" xpath="produits">
+          <Mapping cloverField="nombre" trim="true" xpath="nombre"/>
+          <Mapping cloverField="reference" trim="true" xpath="produit/reference"/>
+          <Mapping cloverField="nom" trim="true" xpath="produit/nom"/>
+          <Mapping cloverField="categorie" trim="true" xpath="produit/categorie"/>
+          <Mapping cloverField="prix" trim="true" xpath="produit/prix"/>
+        </Context>
+      </Context>
+    </Context>
+  </Context>
+</Context>
+]]></attr>
+<attr name="_data_format"><![CDATA[JSON]]></attr>
+<attr name="jsonSchemaURL"><![CDATA[C:\Users\user\Desktop\testMule\bin\customer.JSON]]></attr>
+</Node>
+<Edge debugMode="true" fromNode="FOREACH_CLIENTS_CLIENTS:0" guiBendpoints="" id="Edge3" inPort="Port 1 (in)" metadata="69c1e492-ba7e-440a-898e-30ed27205eba" outPort="Port 0 (out)" toNode="EXT_XML_WRITER0:1"/>
+<Edge debugMode="true" fromNode="FOREACH_COMMANDES_COMMANDES:0" guiBendpoints="" id="Edge5" inPort="Port 2 (in)" metadata="6f41954d-7a14-491e-9c4c-99963bea5439" outPort="Port 0 (out)" toNode="EXT_XML_WRITER0:2"/>
+<Edge debugMode="true" fromNode="FOREACH_OBJECT_OBJECT:0" guiBendpoints="" id="Edge1" inPort="Port 0 (in)" metadata="d0b89ed1-265a-4975-b605-28c6531ad8ef" outPort="Port 0 (out)" toNode="EXT_XML_WRITER0:0"/>
+<Edge debugMode="true" fromNode="FOREACH_PRODUITS_PRODUITS:0" guiBendpoints="" id="Edge7" inPort="Port 3 (in)" metadata="376fe9ae-823e-4290-b436-2c9aaa0b14a3" outPort="Port 0 (out)" toNode="EXT_XML_WRITER0:3"/>
+<Edge debugMode="true" fromNode="JSON_READER0:0" guiBendpoints="" id="Edge0" inPort="Port 0 (in)" metadata="94c1d168-a892-4102-ad9f-5c0af3281b3d" outPort="Port 0 (out)" toNode="FOREACH_OBJECT_OBJECT:0"/>
+<Edge debugMode="true" fromNode="JSON_READER0:1" guiBendpoints="" id="Edge2" inPort="Port 0 (in)" metadata="eb72e760-3ce6-4668-b7a5-ddbcbb8225c8" outPort="Port 1 (out)" toNode="FOREACH_CLIENTS_CLIENTS:0"/>
+<Edge debugMode="true" fromNode="JSON_READER0:2" guiBendpoints="" id="Edge4" inPort="Port 0 (in)" metadata="ab7a3ba0-950b-4de8-93ce-db2d8a17e18b" outPort="Port 2 (out)" toNode="FOREACH_COMMANDES_COMMANDES:0"/>
+<Edge debugMode="true" fromNode="JSON_READER0:3" guiBendpoints="" id="Edge6" inPort="Port 0 (in)" metadata="d7d9ec58-a250-4859-91be-e61a3078269c" outPort="Port 3 (out)" toNode="FOREACH_PRODUITS_PRODUITS:0"/>
+</Phase>
+</Graph>
