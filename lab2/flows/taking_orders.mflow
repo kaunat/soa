@@ -2,29 +2,23 @@
 <mule-configuration xmlns="http://www.mulesoft.com/tooling/messageflow" name="TakingOrders">
     <global-element name="DataMapper" type="http://www.mulesoft.org/schema/mule/ee/data-mapper/config" entity-id="DataMapper#1">
         <properties>
-            <property name="name" value="maporder_grf"/>
-            <property name="auxiliary;index" value="1"/>
-            <property name="transformationGraphPath" value="maporder.grf"/>
-        </properties>
-    </global-element>
-    <global-element name="DataMapper" type="http://www.mulesoft.org/schema/mule/ee/data-mapper/config" entity-id="DataMapper#2">
-        <properties>
             <property name="name" value="mapping_commandePOST_commandeXML"/>
-            <property name="auxiliary;index" value="2"/>
-            <property name="transformationGraphPath" value="mapping_commandePOST_commandeXML.grf"/>
+            <property name="auxiliary;index" value="1"/>
+            <property name="transformationGraphPath" value="c/new_mapping.grf"/>
         </properties>
     </global-element>
-    <flow SubFlow="false" name="TakingOrdersFlow2" entity-id="6e030963-a101-4633-a401-f62ea3e6e755">
+    <flow SubFlow="false" name="TakingOrderFromWebInterface" entity-id="6bc063ff-6253-4724-8393-32eeffddb042">
         <properties>
             <property name="processingStrategy"/>
             <property name="processingStrategy2"/>
+            <property name="initialState"/>
             <property name="bussinessEventsLabel"/>
-            <property name="auxiliary;index" value="3"/>
+            <property name="auxiliary;index" value="2"/>
             <property name="tracking:enable-default-events"/>
         </properties>
         <lane hadOnlyOneElement="false" index="0" isChoiceOtherwiseLane="false" entity-id="compartment-lane#1">
             <graphicalData x="0" y="0" width="0" height="0"/>
-            <endpoint direction="Inbound" message-exchange-pattern="RequestResponse" name="HTTP" type="http://www.mulesoft.org/schema/mule/http/endpoint" entity-id="HTTP#1">
+            <endpoint direction="Inbound" message-exchange-pattern="RequestResponse" name="Web Interface" type="http://www.mulesoft.org/schema/mule/http/endpoint" entity-id="HTTP#1">
                 <graphicalData x="0" y="0" width="0" height="0"/>
                 <properties>
                     <property name="port" value="8088"/>
@@ -47,13 +41,13 @@
                     <property name="responseTransformer-refs"/>
                     <property name="method"/>
                     <property name="user"/>
-                    <property name="auxiliary;index" value="4"/>
+                    <property name="auxiliary;index" value="3"/>
                     <property name="responseTimeout"/>
                     <property name="mimeType"/>
                     <property name="connector-ref"/>
                 </properties>
             </endpoint>
-            <pattern name="DataMapper" type="http://www.mulesoft.org/schema/mule/ee/data-mapper/data-mapper-connector" entity-id="DataMapper#3">
+            <pattern name="POST to XML" type="http://www.mulesoft.org/schema/mule/ee/data-mapper/data-mapper-connector" entity-id="DataMapper#2">
                 <graphicalData x="0" y="0" width="0" height="0"/>
                 <properties>
                     <property name="returnClass"/>
@@ -62,19 +56,19 @@
                     <property name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute" value="http://www.mulesoft.org/schema/mule/ee/data-mapper/transform"/>
                     <property name="pipeSize"/>
                     <property name="config-ref" value="mapping_commandePOST_commandeXML"/>
-                    <property name="auxiliary;index" value="5"/>
+                    <property name="auxiliary;index" value="4"/>
                 </properties>
             </pattern>
-            <pattern name="Logger" type="http://www.mulesoft.org/schema/mule/core/logger" entity-id="Logger#1">
+            <pattern name="New Web Command" type="http://www.mulesoft.org/schema/mule/core/logger" entity-id="Logger#1">
                 <graphicalData x="0" y="0" width="0" height="0"/>
                 <properties>
                     <property name="message" value="Nouvelle commande web"/>
                     <property name="category"/>
                     <property name="level" value="INFO"/>
-                    <property name="auxiliary;index" value="6"/>
+                    <property name="auxiliary;index" value="5"/>
                 </properties>
             </pattern>
-            <endpoint direction="Outbound" message-exchange-pattern="OneWay" name="VM" type="http://www.mulesoft.org/schema/mule/vm/endpoint" entity-id="VM#1">
+            <endpoint direction="Outbound" message-exchange-pattern="OneWay" name="/vm/order" type="http://www.mulesoft.org/schema/mule/vm/endpoint" entity-id="VM#1">
                 <graphicalData x="0" y="0" width="0" height="0"/>
                 <properties>
                     <property name="businessEventsLabel"/>
@@ -87,26 +81,26 @@
                     <property name="path" value="vm/order"/>
                     <property name="encoding"/>
                     <property name="responseTransformer-refs"/>
-                    <property name="auxiliary;index" value="7"/>
+                    <property name="auxiliary;index" value="6"/>
                     <property name="responseTimeout"/>
                     <property name="mimeType"/>
                     <property name="connector-ref"/>
                 </properties>
             </endpoint>
         </lane>
-        <apikit>false</apikit>
     </flow>
-    <flow SubFlow="false" name="TakingOrdersFlow1" entity-id="d2deb74d-cad4-4a14-b151-8e390113db7e">
+    <flow SubFlow="false" name="TakingOrderFromFax" entity-id="7306d9b9-1e03-452d-8a9d-c823e94330af">
         <properties>
             <property name="processingStrategy"/>
             <property name="processingStrategy2"/>
+            <property name="initialState"/>
             <property name="bussinessEventsLabel"/>
-            <property name="auxiliary;index" value="8"/>
+            <property name="auxiliary;index" value="7"/>
             <property name="tracking:enable-default-events"/>
         </properties>
         <lane hadOnlyOneElement="false" index="0" isChoiceOtherwiseLane="false" entity-id="compartment-lane#2">
             <graphicalData x="0" y="0" width="0" height="0"/>
-            <endpoint direction="Inbound" message-exchange-pattern="OneWay" name="File" type="http://www.mulesoft.org/schema/mule/file/endpoint" entity-id="File#1">
+            <endpoint direction="Inbound" message-exchange-pattern="OneWay" name="XML Fax Command" type="http://www.mulesoft.org/schema/mule/file/endpoint" entity-id="File#1">
                 <graphicalData x="0" y="0" width="0" height="0"/>
                 <properties>
                     <property name="reverseOrder"/>
@@ -125,28 +119,28 @@
                     <property name="path" value="./_inputs"/>
                     <property name="encoding"/>
                     <property name="outputPattern"/>
-                    <property name="auxiliary;index" value="9"/>
+                    <property name="auxiliary;index" value="8"/>
                     <property name="mimeType"/>
                     <property name="responseTimeout" value="10000"/>
                     <property name="connector-ref"/>
                     <property-collection name="@http://www.mulesoft.org/schema/mule/file/filename-regex-filter;0">
-                        <property name="pattern" value="command\.xml"/>
+                        <property name="pattern" value=".*\.xml"/>
                         <property name="caseSensitive" value="true"/>
-                        <property name="auxiliary;index" value="10"/>
-                        <property name="auxiliary;wrapIn" value="10"/>
+                        <property name="auxiliary;index" value="9"/>
+                        <property name="auxiliary;wrapIn" value="9"/>
                     </property-collection>
                 </properties>
             </endpoint>
-            <pattern name="Logger" type="http://www.mulesoft.org/schema/mule/core/logger" entity-id="Logger#2">
+            <pattern name="New Fax Command" type="http://www.mulesoft.org/schema/mule/core/logger" entity-id="Logger#2">
                 <graphicalData x="0" y="0" width="0" height="0"/>
                 <properties>
                     <property name="message" value="Nouvelle commande de #[xpath:/command/customer]"/>
                     <property name="category"/>
                     <property name="level" value="INFO"/>
-                    <property name="auxiliary;index" value="11"/>
+                    <property name="auxiliary;index" value="10"/>
                 </properties>
             </pattern>
-            <endpoint direction="Outbound" message-exchange-pattern="OneWay" name="VM" type="http://www.mulesoft.org/schema/mule/vm/endpoint" entity-id="VM#2">
+            <endpoint direction="Outbound" message-exchange-pattern="OneWay" name="/vm/order" type="http://www.mulesoft.org/schema/mule/vm/endpoint" entity-id="VM#2">
                 <graphicalData x="0" y="0" width="0" height="0"/>
                 <properties>
                     <property name="businessEventsLabel"/>
@@ -159,14 +153,18 @@
                     <property name="path" value="vm/order"/>
                     <property name="encoding"/>
                     <property name="responseTransformer-refs"/>
-                    <property name="auxiliary;index" value="12"/>
+                    <property name="auxiliary;index" value="11"/>
                     <property name="responseTimeout"/>
                     <property name="mimeType"/>
                     <property name="connector-ref"/>
+                    <property-collection name="@http://www.mulesoft.org/schema/mule/core/xa-transaction;0">
+                        <property name="action" value="NONE"/>
+                        <property name="auxiliary;index" value="12"/>
+                        <property name="auxiliary;wrapIn" value="12"/>
+                    </property-collection>
                 </properties>
             </endpoint>
         </lane>
-        <apikit>false</apikit>
     </flow>
     <description></description>
 </mule-configuration>

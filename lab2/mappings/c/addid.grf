@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Graph author="cgallesi" created="Sun Nov 24 13:45:49 CET 2013" guiVersion="3.4.0.P" id="1385297959740" licenseCode="Unlicensed" licenseType="Unknown" modified="Sun Nov 24 13:45:49 CET 2013" modifiedBy="cgallesi" name="addid_grf" revision="1.0" showComponentDetails="false">
+<Global>
+<Metadata __index="0" __referenceCounter="1" __sourcePath="{}/Commande XML" _dataStructure="OBJECT" _id="__id" _type="Input" id="b460b5af-2c30-443f-97c8-c491dc1d8632">
+<Record fieldDelimiter="|" name="Commande_XML" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="0" __sourcePath="{}/Commande XML/command/customer/first_name" containerType="SINGLE" label="first_name" name="first_name" type="string"/>
+<Field __index="1" __sourcePath="{}/Commande XML/command/customer/last_name" containerType="SINGLE" label="last_name" name="last_name" type="string"/>
+<Field __index="2" __sourcePath="{}/Commande XML/command/customer/address" containerType="SINGLE" label="address" name="address" type="string"/>
+<Field __index="3" __sourcePath="{}/Commande XML/command/expect" containerType="SINGLE" label="expect" name="expect" type="string"/>
+</Record>
+</Metadata>
+<Metadata __index="0" __referenceCounter="1" __sourcePath="{}/Commande XML with ID" _dataStructure="OBJECT" _id="__id" _type="Output" id="78958712-f6ce-4612-a0dc-6414fe428344">
+<Record fieldDelimiter="|" name="Commande_XML_with_ID" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="1" __sourcePath="{}/Commande XML with ID/command/customer/first_name" containerType="SINGLE" label="first_name" name="first_name" type="string"/>
+<Field __index="2" __sourcePath="{}/Commande XML with ID/command/customer/last_name" containerType="SINGLE" label="last_name" name="last_name" type="string"/>
+<Field __index="3" __sourcePath="{}/Commande XML with ID/command/customer/address" containerType="SINGLE" label="address" name="address" type="string"/>
+<Field __sourcePath="{}/Commande XML with ID/command/@id" containerType="SINGLE" label="id" name="id" type="string"/>
+<Field __sourcePath="{}/Commande XML with ID/command/@expect" containerType="SINGLE" label="expect" name="expect" type="string"/>
+</Record>
+</Metadata>
+<Metadata __index="4" __referenceCounter="2" __sourcePath="{}/Commande XML/command/products" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _id="__id" _metadataParentId="b460b5af-2c30-443f-97c8-c491dc1d8632" _parent_id="__parent_id" _type="Input" id="ab6973f4-b3a6-4d09-90fb-aa48d7466450">
+<Record fieldDelimiter="|" name="products" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_parent_id" __systemManaged="true" name="__parent_id" type="string"/>
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="4" __sourcePath="{}/Commande XML/command/products/product/reference" containerType="SINGLE" label="reference" name="reference" type="string"/>
+</Record>
+</Metadata>
+<Metadata __index="4" __referenceCounter="2" __sourcePath="{}/Commande XML with ID/command/products" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _id="__id" _metadataParentId="78958712-f6ce-4612-a0dc-6414fe428344" _parent_id="__parent_id" _type="Output" id="568029ba-f8fb-4ac4-bf08-5af2f329f719">
+<Record fieldDelimiter="|" name="products" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_parent_id" __systemManaged="true" name="__parent_id" type="string"/>
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="4" __sourcePath="{}/Commande XML with ID/command/products/product/reference" containerType="SINGLE" label="reference" name="reference" type="string"/>
+</Record>
+</Metadata>
+<Dictionary>
+<Entry id="DictionaryEntry0" input="true" name="inputPayload" output="false" type="object"/>
+<Entry id="DictionaryEntry1" input="false" name="outputPayload" output="true" type="object"/>
+</Dictionary>
+</Global>
+<Phase number="0">
+<Node charset="UTF-8" enabled="enabled" fileURL="dict:outputPayload" guiName="XML WRITER" guiX="900" guiY="20" id="EXT_XML_WRITER0" type="EXT_XML_WRITER">
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<clover:element clover:name="Commande XML with ID" xmlns:clover="http://www.cloveretl.com/ns/xmlmapping" clover:inPort="0">
+  <command expect="$0.expect" id="$0.id">
+    <customer>
+      <clover:element clover:name="first_name">$0.first_name</clover:element>
+      <clover:element clover:name="last_name">$0.last_name</clover:element>
+      <address>$0.address</address>
+    </customer>
+    <products clover:inPort="1" clover:key="__parent_id" clover:parentKey="__id">
+      <product>
+        <reference>$1.reference</reference>
+      </product>
+    </products>
+    <products clover:inPort="2" clover:key="__parent_id" clover:parentKey="__id">
+      <product>
+        <reference>$2.reference</reference>
+      </product>
+    </products>
+  </command>
+</clover:element>]]></attr>
+<attr name="_data_format"><![CDATA[XML]]></attr>
+</Node>
+<Node enabled="enabled" guiName="Foreach 'Commande XML' -&gt; 'Commande XML with ID'" guiX="460" guiY="20" id="FOREACH_COMMANDE_XML_COMMANDE_XML_WITH_ID" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
+<attr name="melScript"><![CDATA[//MEL
+//START -> DO NOT REMOVE
+output.__id = input.__id;
+//END -> DO NOT REMOVE
+output.first_name = input.first_name;
+output.last_name = input.last_name;
+output.address = input.address;
+output.expect = input.expect;]]></attr>
+</Node>
+<Node enabled="enabled" guiName="Foreach 'products' -&gt; 'products'" guiX="460" guiY="120" id="FOREACH_PRODUCTS_PRODUCTS" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
+<attr name="melScript"><![CDATA[//MEL
+//START -> DO NOT REMOVE
+output.__id = input.__id;
+output.__parent_id = input.__parent_id;
+//END -> DO NOT REMOVE
+output.reference = input.reference;
+]]></attr>
+</Node>
+<Node enabled="enabled" guiName="Foreach 'products' -&gt; 'products'" guiX="460" guiY="220" id="FOREACH_PRODUCTS_PRODUCTS1" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
+<attr name="melScript"><![CDATA[//MEL
+//START -> DO NOT REMOVE
+output.__id = input.__id;
+output.__parent_id = input.__parent_id;
+//END -> DO NOT REMOVE
+output.reference = input.reference;
+]]></attr>
+</Node>
+<Node charset="UTF-8" enabled="enabled" fileURL="dict:inputPayload" guiName="XML READER" guiX="20" guiY="20" id="XML_READER0" type="XML_READER">
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Context outPort="0" sequenceField="__id" xpath="/Commande XML">
+  <Mapping cloverField="first_name" trim="true" xpath="command/customer/first_name"/>
+  <Mapping cloverField="last_name" trim="true" xpath="command/customer/last_name"/>
+  <Mapping cloverField="address" trim="true" xpath="command/customer/address"/>
+  <Mapping cloverField="expect" trim="true" xpath="command/expect"/>
+  <Context generatedKey="__parent_id" outPort="1" parentKey="__id" sequenceField="__id" xpath="command/products">
+    <Mapping cloverField="reference" trim="true" xpath="product/reference"/>
+  </Context>
+  <Context generatedKey="__parent_id" outPort="2" parentKey="__id" sequenceField="__id" xpath="command/products">
+    <Mapping cloverField="reference" trim="true" xpath="product/reference"/>
+  </Context>
+</Context>
+]]></attr>
+<attr name="_data_format"><![CDATA[XML]]></attr>
+</Node>
+<Edge debugMode="true" fromNode="FOREACH_COMMANDE_XML_COMMANDE_XML_WITH_ID:0" guiBendpoints="" id="Edge1" inPort="Port 0 (in)" metadata="78958712-f6ce-4612-a0dc-6414fe428344" outPort="Port 0 (out)" toNode="EXT_XML_WRITER0:0"/>
+<Edge debugMode="true" fromNode="FOREACH_PRODUCTS_PRODUCTS:0" guiBendpoints="" id="Edge3" inPort="Port 1 (in)" metadata="568029ba-f8fb-4ac4-bf08-5af2f329f719" outPort="Port 0 (out)" toNode="EXT_XML_WRITER0:1"/>
+<Edge debugMode="true" fromNode="FOREACH_PRODUCTS_PRODUCTS1:0" guiBendpoints="" id="Edge5" inPort="Port 2 (in)" metadata="568029ba-f8fb-4ac4-bf08-5af2f329f719" outPort="Port 0 (out)" toNode="EXT_XML_WRITER0:2"/>
+<Edge debugMode="true" fromNode="XML_READER0:0" guiBendpoints="" id="Edge0" inPort="Port 0 (in)" metadata="b460b5af-2c30-443f-97c8-c491dc1d8632" outPort="Port 0 (out)" toNode="FOREACH_COMMANDE_XML_COMMANDE_XML_WITH_ID:0"/>
+<Edge debugMode="true" fromNode="XML_READER0:1" guiBendpoints="" id="Edge2" inPort="Port 0 (in)" metadata="ab6973f4-b3a6-4d09-90fb-aa48d7466450" outPort="Port 1 (out)" toNode="FOREACH_PRODUCTS_PRODUCTS:0"/>
+<Edge debugMode="true" fromNode="XML_READER0:2" guiBendpoints="" id="Edge4" inPort="Port 0 (in)" metadata="ab6973f4-b3a6-4d09-90fb-aa48d7466450" outPort="Port 2 (out)" toNode="FOREACH_PRODUCTS_PRODUCTS1:0"/>
+</Phase>
+</Graph>

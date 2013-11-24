@@ -1,0 +1,6 @@
+<command>
+	<customer first_name="Claire" last_name="Gallesio" address="RoquefortLesPins"></customer>
+	<products>
+		<product reference="1v"></product>
+	</products>
+</command>

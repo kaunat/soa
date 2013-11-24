@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:data-mapper="http://www.mulesoft.org/schema/mule/ee/data-mapper" xmlns:ajax="http://www.mulesoft.org/schema/mule/ajax" xmlns:file="http://www.mulesoft.org/schema/mule/file" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:mulexml="http://www.mulesoft.org/schema/mule/xml" xmlns:jersey="http://www.mulesoft.org/schema/mule/jersey" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:vm="http://www.mulesoft.org/schema/mule/vm" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+<mule xmlns:jbossts="http://www.mulesoft.org/schema/mule/jbossts" xmlns:data-mapper="http://www.mulesoft.org/schema/mule/ee/data-mapper" xmlns:ajax="http://www.mulesoft.org/schema/mule/ajax" xmlns:file="http://www.mulesoft.org/schema/mule/file" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:mulexml="http://www.mulesoft.org/schema/mule/xml" xmlns:jersey="http://www.mulesoft.org/schema/mule/jersey" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:vm="http://www.mulesoft.org/schema/mule/vm" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
 http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/current/mule-vm.xsd
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
@@ -9,22 +9,30 @@ http://www.mulesoft.org/schema/mule/ajax http://www.mulesoft.org/schema/mule/aja
 http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
 http://www.mulesoft.org/schema/mule/xml http://www.mulesoft.org/schema/mule/xml/current/mule-xml.xsd
 http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd
-http://www.mulesoft.org/schema/mule/ee/data-mapper http://www.mulesoft.org/schema/mule/ee/data-mapper/current/mule-data-mapper.xsd">
+http://www.mulesoft.org/schema/mule/ee/data-mapper http://www.mulesoft.org/schema/mule/ee/data-mapper/current/mule-data-mapper.xsd
+http://www.mulesoft.org/schema/mule/jbossts http://www.mulesoft.org/schema/mule/jbossts/current/mule-jbossts.xsd">
+
+	<!--
     <data-mapper:config name="maporder_grf" transformationGraphPath="maporder.grf" doc:name="DataMapper"/>
-    <data-mapper:config name="mapping_commandePOST_commandeXML" transformationGraphPath="mapping_commandePOST_commandeXML.grf" doc:name="mapping_commandePOST_commandeXML"/>
-    <flow name="TakingOrdersFlow2" doc:name="TakingOrdersFlow2">
-        <http:inbound-endpoint exchange-pattern="one-way" host="localhost" port="8088" path="order" doc:name="HTTP"/>
-        <data-mapper:transform config-ref="mapping_commandePOST_commandeXML" doc:name="DataMapper"/>
-        <logger message="Nouvelle commande web" level="INFO" doc:name="Logger"/>
-        <vm:outbound-endpoint exchange-pattern="one-way" path="vm/order" doc:name="VM"/>
+    <data-mapper:config name="addid_grf" transformationGraphPath="c/addid.grf" doc:name="addid_grf"/>
+    -->
+    <data-mapper:config name="mapping_commandePOST_commandeXML" transformationGraphPath="c/new_mapping.grf" doc:name="DataMapper"/>
+    
+    <flow name="TakingOrderFromWebInterface" doc:name="TakingOrderFromWebInterface">
+        <http:inbound-endpoint exchange-pattern="one-way" host="localhost" port="8088" path="order" doc:name="Web Interface"/>
+        <data-mapper:transform config-ref="mapping_commandePOST_commandeXML" doc:name="POST to XML"/>
+        <logger message="Nouvelle commande web" level="INFO" doc:name="New Web Command"/>
+        <vm:outbound-endpoint exchange-pattern="one-way" path="vm/order" doc:name="/vm/order"/>
     </flow>
 
-    <flow name="TakingOrdersFlow1" doc:name="TakingOrdersFlow1">
-        <file:inbound-endpoint path="./_inputs" moveToDirectory="./_outputs" responseTimeout="10000" doc:name="File">
-            <file:filename-regex-filter pattern="command\.xml" caseSensitive="true"/>
+    <flow name="TakingOrderFromFax" doc:name="TakingOrderFromFax">
+        <file:inbound-endpoint path="./_inputs" moveToDirectory="./_outputs" responseTimeout="10000" doc:name="XML Fax Command">
+            <file:filename-regex-filter pattern=".*\.xml" caseSensitive="true"/>
 
         </file:inbound-endpoint>
-        <logger message="Nouvelle commande de #[xpath:/command/customer]" level="INFO" doc:name="Logger"/>
-        <vm:outbound-endpoint exchange-pattern="one-way" path="vm/order" doc:name="VM"/>
+        <logger message="Nouvelle commande de #[xpath:/command/customer]" level="INFO" doc:name="New Fax Command"/>
+        <vm:outbound-endpoint exchange-pattern="one-way" path="vm/order" doc:name="/vm/order">
+            <xa-transaction action="NONE"/>
+        </vm:outbound-endpoint>
     </flow>
 </mule>

@@ -1,0 +1,7 @@
+<command>
+	<customer first_name="Gaspard" last_name="Perrot" address="LaRoquetteSurSiagne"></customer>
+	<products>
+		<product reference="3f"></product>
+		<product reference="1v"></product>
+	</products>
+</command>
